@@ -1,0 +1,35 @@
+name: Something is wrong
+description: The library does not do what it should.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: did
+    attributes:
+      label: What you did
+      description: The steps, or the code, that lead to the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened
+      description: Include any error message in full.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Library version
+      description: PACKOUT_CORE_VERSION in load.php, or the plugin and its version.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: WordPress and PHP versions

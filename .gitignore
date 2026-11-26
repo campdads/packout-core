@@ -1,0 +1,10 @@
+.DS_Store
+/vendor/
+/node_modules/
+/dist/
+*.log
+.env
+.env.*
+*.key
+*.pem
+.phpunit.result.cache

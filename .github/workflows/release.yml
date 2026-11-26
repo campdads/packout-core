@@ -1,0 +1,61 @@
+name: Release
+
+# A version tag makes a GitHub release of the files a plugin carries. The
+# library is never installed on its own, so nothing is sent to the catalog.
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check
+    uses: ./.github/workflows/check.yml
+
+  release:
+    name: Release
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: "8.3"
+          extensions: sodium, zip
+          coverage: none
+
+      - name: The tag is the version
+        env:
+          TAG: ${{ github.ref_name }}
+        run: php bin/check-versions.php "$TAG"
+
+      - name: Build the copy a plugin carries
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          version="${TAG#v}"
+          mkdir -p "$RUNNER_TEMP/plugin" dist
+          php bin/export.php "$RUNNER_TEMP/plugin"
+          cp "$RUNNER_TEMP/plugin/packout-core.lock" "dist/packout-core-${version}.lock"
+          (cd "$RUNNER_TEMP/plugin/lib" && zip -q -r -X "$GITHUB_WORKSPACE/dist/packout-core-${version}.zip" packout-core)
+          (cd dist && sha256sum "packout-core-${version}.zip" > "packout-core-${version}.zip.sha256")
+          php bin/changelog-entry.php "$version" > "$RUNNER_TEMP/notes.md"
+          cat "dist/packout-core-${version}.lock"
+
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          flags=()
+          case "$TAG" in *-*) flags+=(--prerelease) ;; esac
+          gh release create "$TAG" dist/* --repo "$GITHUB_REPOSITORY" --title "$TAG" --notes-file "$RUNNER_TEMP/notes.md" --verify-tag "${flags[@]}"

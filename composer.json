@@ -1,0 +1,30 @@
+{
+	"name": "campdads/packout-core",
+	"description": "The shared library of Pack-Out Spot.",
+	"type": "library",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=8.2"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"wp-coding-standards/wpcs": "^3.1"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		},
+		"sort-packages": true
+	},
+	"scripts": {
+		"lint": "phpcs",
+		"test": "@php tests/run.php",
+		"check": [
+			"@php bin/check-versions.php",
+			"@php bin/capabilities-doc.php --check",
+			"@test",
+			"@lint"
+		]
+	}
+}
