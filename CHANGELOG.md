@@ -2,6 +2,15 @@
 
 Every version of the library, newest first. Each plugin pins one.
 
+## 0.13.1
+
+Choosable options as terms, and two fields a listing can carry.
+
+- **Vocabularies.** Twenty-one taxonomies cover the lists a person picks from: Spot categories, stages, hazards, location kinds, map overlays, organization and program types, and the rest. Code registers them, seeds the terms that shipped, and refuses to delete a seed. A coordinator can add a term. Every chooser reads the terms. The old post meta is still written this version.
+- **On the hub**, the same definitions are merged into Content Types, and restored if they are taken out.
+- **The contract** lets a listing name `group_type` and `program_type`, and a Spot's `status` and `hazard` are any short slug. `PACKOUT_CORE_CONTRACT` stays 1.
+- `tests/site/phase-26.php` checks the seeds, a protected delete, an added category and hazard, and organization type filters.
+
 ## 0.13.0
 
 Sites and hubs of different versions.
