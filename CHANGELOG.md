@@ -2,6 +2,12 @@
 
 Every version of the library, newest first. Each plugin pins one.
 
+## 0.13.2
+
+Taxonomies under their own menu, named as themselves.
+
+- Coordinators manage every vocabulary under **Pack-Out Taxonomies**. Each item is the taxonomy's name; the ordered list does not say “Order”.
+
 ## 0.13.1
 
 Choosable options as terms, and two fields a listing can carry.
