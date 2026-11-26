@@ -36,6 +36,7 @@ $added = array(
 	'0.9.0'  => array( 'profile: images' ),
 	'0.11.0' => array( 'campaigns', 'listings: items/*/joint' ),
 	'0.12.0' => array( 'claims', 'move', 'recover' ),
+	'0.13.1' => array( 'listings: items/*/group_type', 'listings: items/*/program_type' ),
 );
 
 /**
