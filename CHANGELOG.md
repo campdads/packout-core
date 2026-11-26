@@ -2,6 +2,12 @@
 
 Every version of the library, newest first. Each plugin pins one.
 
+## 0.13.3
+
+The ordered view of each taxonomy keeps the taxonomy's name.
+
+- Content Types hangs every vocabulary under **Pack-Out Taxonomies**. The ordered view uses the taxonomy's name, not “Ordered View”.
+
 ## 0.13.2
 
 Taxonomies under their own menu, named as themselves.
